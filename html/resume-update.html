@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="resume.css">
+    <title>Resume</title>
+</head>
+<body>
+    <form>
+        <fieldset>
+            <legend>Education</legend>
+            <input type="number" id="start_year" name="start_year" placeholder="Start Year" min="1900" max="2040" required><br>
+            <input type="number" id="end_year" name="end_year" placeholder="End Year" min="1900" max="2040"><br>
+            <input type="text" id="institution_name" name="institution_name" placeholder="Institution Name" required><br>
+            <select id="study_type" name="study_type" required>
+                <option>Degree</option>
+                <option>Certificate</option>
+            </select><br>
+            <label>Additional info</label><br>
+            <textarea name="description" id="description"></textarea>
+            <br>
+            <button type="submit">Update</button>
+        </fieldset>
+        <fieldset>
+            <legend>Occupation</legend>
+            <input type="number" id="work_start_year" name="work_start_year" placeholder="Start Year" min="1900" max="2040" required><br>
+            <input type="number" id="work_end_year" name="work_end_year" placeholder="End Year" min="1900" max="2040"><br>
+            <input type="text" id="workplace_name" name="workplace_name" placeholder="Workplace Name" required><br>
+            <input type="text" id="role_name" name="role_name" placeholder="Role Name" required><br>
+            <label>Description</label><br>
+            <textarea name="description" id="description"></textarea>
+            <br>
+            <button type="submit">Update</button>
+        </fieldset>
+    </form>
+</body>
+</html>
