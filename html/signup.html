@@ -8,8 +8,34 @@
     <link rel="stylesheet" href="signup.css">
 </head>
 <body>
+    <div class="header">
+        <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox">
+        <label for="menu-toggle" class="menu-button">☰</label>
+        
+        <div class="sidebar">
+            <ul class="nav-menu">
+                <li>
+                    <a href="">Shifts</a>
+                </li>
+                <li>
+                    <a href="update-profile.html">Update Profile</a>
+                </li>
+                <li>
+                    <a href="update-shift.html">Update Shifts</a>
+                </li>
+                <li>
+                    <a href="resume-update.html">Resume Update</a>
+                </li>
+                <li class="user-greeting">Hello <USER_NAME>!</li>
+                <li>
+                    <a href="">Signout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
     <form>
         <div class="signup-form">
+            <h1>Signup</h1>
             <input type="email" id="email" name="email" placeholder="Email">
             <input type="text" id="username" name="username" placeholder="Username">
             <input type="password" id="password" name="password" placeholder="Password">

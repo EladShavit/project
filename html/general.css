@@ -43,3 +43,73 @@ a button {
 a button:hover {
     background-color: #545b62;
 }
+
+.menu-toggle-checkbox {
+    display: none;
+}
+
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 1000;
+    transition: background-color 0.3s;
+}
+
+.menu-button:hover {
+    background-color: #0056b3;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
+    background-color: #007bff;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    transition: left 0.3s ease;
+    z-index: 999;
+    padding-top: 60px;
+}
+
+.menu-toggle-checkbox:checked ~ .sidebar {
+    left: 0;
+}
+
+.nav-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    margin-bottom: 5px;
+}
+
+.nav-menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    transition: background-color 0.3s;
+}
+
+.nav-menu a:hover {
+    background-color: #0056b3;
+}
+
+.user-greeting {
+    color: white;
+    padding: 15px 20px;
+    font-weight: bold;
+    background-color: #0056b3;
+    margin-top: 20px;
+}
