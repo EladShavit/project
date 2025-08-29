@@ -20,3 +20,16 @@
     flex-basis: 100%;
     margin-top: 10px;
 }
+
+.login-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 15px;
+    display: block;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}

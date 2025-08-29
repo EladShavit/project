@@ -1,11 +1,9 @@
-// Login functionality
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.querySelector('form');
     const loginFormDiv = document.querySelector('.login-form');
     const usernameInput = document.getElementById('username');
     const passwordInput = document.getElementById('password');
     
-    // Create error message element
     const errorMessage = document.createElement('p');
     errorMessage.style.color = 'red';
     errorMessage.style.textAlign = 'center';
@@ -14,20 +12,17 @@ document.addEventListener('DOMContentLoaded', function() {
     errorMessage.style.display = 'none';
     errorMessage.style.fontSize = '14px';
     
-    // Insert error message after the password input but before the buttons
     const flexBreak = loginFormDiv.querySelector('div[style*="flex-basis"]');
     loginFormDiv.insertBefore(errorMessage, flexBreak);
     
     loginForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault(); 
         
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
         
-        // Clear previous error message
         hideError();
         
-        // Validate input fields
         if (!username) {
             showError('Please enter a username');
             return;
@@ -38,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Check if user exists in localStorage
         const users = JSON.parse(localStorage.getItem('users')) || {};
         
         if (!users[username]) {
@@ -46,17 +40,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Check if password is correct
         if (users[username].password !== password) {
             showError('Incorrect password. Please try again.');
             return;
         }
-        
-        // Login successful
-        // Store current logged in user
+
         localStorage.setItem('currentUser', username);
         
-        // Redirect to homepage
         window.location.href = 'homepage.html';
     });
     
@@ -64,11 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
         errorMessage.textContent = message;
         errorMessage.style.display = 'block';
         
-        // Clear input fields on error
         usernameInput.value = '';
         passwordInput.value = '';
         
-        // Focus back to username field
         usernameInput.focus();
     }
     
@@ -77,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
         errorMessage.textContent = '';
     }
     
-    // Hide error message when user starts typing
     usernameInput.addEventListener('input', hideError);
     passwordInput.addEventListener('input', hideError);
 });
