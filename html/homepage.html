@@ -6,6 +6,8 @@
     <title>Homepage</title>
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="homepage.css">
+    <script src="menu.js" defer></script>
+    <script src="homepage.js" defer></script>
 </head>
 <body>
     <div class="header">
@@ -14,20 +16,20 @@
         <div class="sidebar">
             <ul class="nav-menu">
                 <li>
-                    <a href="">Shifts</a>
+                    <a href="#" id="shifts-link">Shifts</a>
                 </li>
                 <li>
                     <a href="update-profile.html">Update Profile</a>
                 </li>
                 <li>
-                    <a href="update-shift.html">Update Shifts</a>
+                    <a href="update-shift.html">Add Shift</a>
                 </li>
                 <li>
                     <a href="resume-update.html">Resume Update</a>
                 </li>
-                <li class="user-greeting">Hello <USER_NAME>!</li>
+                <li class="user-greeting"></li>
                 <li>
-                    <a href="">Signout</a>
+                    <a href="#" id="signout-link">Signout</a>
                 </li>
             </ul>
         </div>
@@ -38,7 +40,8 @@
     </div>
     <div class="content-area">
         <form class="filter-form">
-            <select>
+            <select id="branch-filter">
+                <option value="">All Branches</option>
                 <option>Tel Aviv</option>
                 <option>Rannana</option>
                 <option>Haifa</option>
@@ -52,15 +55,15 @@
         </form>
         <table class="shifts-table">
             <tr>
-                <td>Date</td>
-                <td>Start Time</td>
-                <td>Finish Time</td>
-                <td>Hourly Wage</td>
-                <td>Position</td>
-                <td>Branch</td>
-                <td>Overall Wage Per Shift</td>
-                <td>Delete</td>
-                <td>Update</td>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>Finish Time</th>
+                <th>Hourly Wage</th>
+                <th>Position</th>
+                <th>Branch</th>
+                <th>Overall Wage Per Shift</th>
+                <th>Delete</th>
+                <th>Update</th>
             </tr>
         </table>
         <p>Total Wage For Displayed Shifts:</p>

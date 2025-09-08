@@ -4,45 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Shift</title>
-     <link rel="stylesheet" href="general.css">
-      <link rel="stylesheet" href="update-shift.css">
+    <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="update-shift.css">
+    <script src="menu.js" defer></script>
+    <script src="update-shift.js" defer></script>
 </head>
 <body>
-  <div class="header">
-    <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox">
-    <label for="menu-toggle" class="menu-button">☰</label>
-    
-    <div class="sidebar">
-        <ul class="nav-menu">
-            <li>
-                <a href="">Shifts</a>
-            </li>
-            <li>
-                <a href="update-profile.html">Update Profile</a>
-            </li>
-            <li>
-                <a href="update-shift.html">Update Shifts</a>
-            </li>
-            <li>
-                <a href="resume-update.html">Resume Update</a>
-            </li>
-            <li class="user-greeting">Hello <USER_NAME>!</li>
-            <li>
-                <a href="">Signout</a>
-            </li>
-        </ul>
+    <div class="header">
+        <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox">
+        <label for="menu-toggle" class="menu-button">☰</label>
+        
+        <div class="sidebar">
+            <ul class="nav-menu">
+                <li>
+                    <a href="#" id="shifts-link">Shifts</a>
+                </li>
+                <li>
+                    <a href="update-profile.html">Update Profile</a>
+                </li>
+                <li>
+                    <a href="update-shift.html">Update Shifts</a>
+                </li>
+                <li>
+                    <a href="resume-update.html">Resume Update</a>
+                </li>
+                <li class="user-greeting">Hello!</li>
+                <li>
+                    <a href="#" id="signout-link">Signout</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
     <form>
-      <div class="signup-form">
-        <h1>Shift Details</h1>
-        <input type="date" id="date" name="date" placeholder="date">
-        <input type="time" id="starttime" name="start.time" placeholder="Start Time">
-        <input type="time" id="finish.time" name="finish.time" placeholder="Finish Time">
-        <input type="number" id="hourly.wage" name="hourly.wage" placeholder="Hourly Wage">
-        <input type="text" id="position" name="position" placeholder="Position">
-        <div class="select-list">
-            <select>
+        <div class="signup-form">
+            <h1>Shift Details</h1>
+            <input type="date" id="date" name="date" placeholder="Date">
+            <input type="time" id="starttime" name="starttime" placeholder="Start Time">
+            <input type="time" id="finishtime" name="finishtime" placeholder="Finish Time">
+            <input type="number" id="hourlywage" name="hourlywage" placeholder="Hourly Wage" step="0.01" min="0">
+            <input type="text" id="position" name="position" placeholder="Position">
+            <select id="branch" name="branch">
+                <option value="">Select Branch</option>
                 <option>Tel Aviv</option>
                 <option>Rannana</option>
                 <option>Haifa</option>
@@ -51,9 +53,8 @@
                 <option>Eilat</option>
                 <option>Kiryat Gat</option>
             </select>
+            <button type="submit">Save</button>
         </div>
-        <button type="submit">save</button>
-      </div>
     </form>
 </body>
 </html>

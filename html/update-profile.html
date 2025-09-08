@@ -6,6 +6,7 @@
     <title>Update Profile</title>
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="update-profile.css">
+    <script src="menu.js" defer></script>
 </head>
 <body>
     <div class="header">
@@ -15,20 +16,20 @@
         <div class="sidebar">
             <ul class="nav-menu">
                 <li>
-                    <a href="">Shifts</a>
+                    <a href="#" id="shifts-link">Shifts</a>
                 </li>
                 <li>
                     <a href="update-profile.html">Update Profile</a>
                 </li>
                 <li>
-                    <a href="update-shift.html">Update Shifts</a>
+                    <a href="update-shift.html">Add Shift</a>
                 </li>
                 <li>
                     <a href="resume-update.html">Resume Update</a>
                 </li>
-                <li class="user-greeting">Hello <USER_NAME>!</li>
+                <li class="user-greeting"></li>
                 <li>
-                    <a href="">Signout</a>
+                    <a href="#" id="signout-link">Signout</a>
                 </li>
             </ul>
         </div>
@@ -42,7 +43,7 @@
             <input type="text" id="first_name" name="first_name" placeholder="First Name">
             <input type="text" id="last_name" name="last_name" placeholder="Last Name">
             <input type="number" id="age" name="age" placeholder="Age">
-            <button type="submit">Register</button>
+            <button type="submit">Update</button>
         </div>
     </form>
 </body>

@@ -10,10 +10,18 @@
     align-items: stretch;
 }
 
-.signup-form input {
+.signup-form input, .signup-form select {
     width: 100%;
     box-sizing: border-box;
     min-width: 300px;
+}
+
+.signup-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
 }
 
 .signup-form button[type="submit"] {
@@ -21,19 +29,10 @@
     margin-top: 10px;
 }
 
-.select-list {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.select-list select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: white;
-    width: 300px;
+/* Message container styling */
+#message-container {
+    width: 100%;
+    text-align: center;
+    min-height: 30px;
+    box-sizing: border-box;
 }
