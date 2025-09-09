@@ -2,24 +2,23 @@
 // currentUser is already declared in menu.js which loads first
 const shiftsTable = document.querySelector('.shifts-table');
 const filterForm = document.querySelector('.filter-form');
-const branchSelect = filterForm.querySelector('select');
+const branchSelect = document.getElementById('branch-filter');
 const positionInput = document.getElementById('job_position');
 const totalWageDisplay = document.querySelector('p');
-const addShiftsButton = document.querySelector('button:last-child');
 
 // Store all user shifts for filtering
 let userShifts = [];
 
 // Initialize the page
 function initializePage() {
-    // Handle add shifts button
-    addShiftsButton.addEventListener('click', function() {
-        if (!currentUser) {
-            alert('Please login to add shifts');
-            window.location.href = 'login.html';
-        } else {
-            window.location.href = 'update-shift.html';
-        }
+    console.log('Initializing homepage...');
+    
+    // Check if elements exist
+    console.log('Elements check:', {
+        shiftsTable: !!shiftsTable,
+        filterForm: !!filterForm,
+        branchSelect: !!branchSelect,
+        positionInput: !!positionInput
     });
     
     // Load and display shifts
@@ -31,6 +30,8 @@ function initializePage() {
 
 // Load shifts from localStorage
 function loadShifts() {
+    console.log('Loading shifts for user:', currentUser);
+    
     // Clear existing rows (except header)
     while (shiftsTable.rows.length > 1) {
         shiftsTable.deleteRow(1);
@@ -45,7 +46,10 @@ function loadShifts() {
     
     // Get all shifts from localStorage
     const allShifts = JSON.parse(localStorage.getItem('shifts')) || {};
+    console.log('All shifts in localStorage:', allShifts);
+    
     userShifts = allShifts[currentUser] || [];
+    console.log('User shifts found:', userShifts.length, userShifts);
     
     if (userShifts.length === 0) {
         displayNoShiftsMessage('No shifts found. Click "Add shifts" to create your first shift.');
@@ -156,7 +160,7 @@ function deleteShift(shiftId) {
                           `Time: ${shift.startTime} - ${shift.finishTime}\n` +
                           `Position: ${shift.position}\n` +
                           `Branch: ${shift.branch}\n` +
-                          `Wage: ${shift.totalWage.toFixed(2)}`;
+                          `Wage: $${shift.totalWage.toFixed(2)}`;
     
     if (!confirm(confirmMessage)) {
         return;
@@ -196,13 +200,26 @@ function updateShift(shiftId) {
 
 // Set up filter functionality
 function setupFilters() {
-    // Get unique branches from user shifts
-    updateBranchOptions();
+    // Get the filter button
+    const filterButton = filterForm.querySelector('button');
     
-    // Filter form submission
+    if (filterButton) {
+        // Add click event to filter button
+        filterButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Filter button clicked');
+            applyFilters();
+        });
+    }
+    
+    // Also handle form submission (in case Enter is pressed)
     filterForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        e.stopPropagation();
+        console.log('Filter form submitted');
         applyFilters();
+        return false;
     });
 }
 
@@ -211,18 +228,29 @@ function applyFilters() {
     const selectedBranch = branchSelect.value;
     const positionFilter = positionInput.value.trim().toLowerCase();
     
+    console.log('Applying filters:', { branch: selectedBranch, position: positionFilter });
+    
+    // Start with all user shifts
     let filteredShifts = [...userShifts];
     
-    // Filter by branch
-    if (selectedBranch) {
+    // Filter by branch if one is selected (not "All Branches")
+    if (selectedBranch && selectedBranch !== '') {
         filteredShifts = filteredShifts.filter(shift => shift.branch === selectedBranch);
+        console.log('After branch filter:', filteredShifts.length, 'shifts');
     }
     
-    // Filter by position
-    if (positionFilter) {
+    // Filter by position if text is entered
+    if (positionFilter && positionFilter !== '') {
         filteredShifts = filteredShifts.filter(shift => 
             shift.position.toLowerCase().includes(positionFilter)
         );
+        console.log('After position filter:', filteredShifts.length, 'shifts');
+    }
+    
+    // If no filters are applied, show all shifts
+    if (!selectedBranch && !positionFilter) {
+        filteredShifts = [...userShifts];
+        console.log('No filters applied, showing all shifts');
     }
     
     // Display filtered shifts
