@@ -359,28 +359,73 @@ function initializePage() {
 
     // Add cancel button functionality if in update mode
     if (isUpdating) {
+        // Create a container for both buttons
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.display = 'flex';
+        buttonContainer.style.gap = '10px';
+        buttonContainer.style.width = '100%';
+        buttonContainer.style.marginTop = '10px';
+        
+        // Move the submit button into the container
+        const submitParent = submitButton.parentNode;
+        submitParent.removeChild(submitButton);
+        
+        // Reset and style the submit button to ensure consistent sizing
+        submitButton.style.cssText = '';  // Clear any existing styles
+        submitButton.style.flex = '1';
+        submitButton.style.padding = '10px 20px';
+        submitButton.style.fontSize = '16px';
+        submitButton.style.border = 'none';
+        submitButton.style.borderRadius = '4px';
+        submitButton.style.cursor = 'pointer';
+        submitButton.style.backgroundColor = '#007bff';
+        submitButton.style.color = 'white';
+        submitButton.style.minHeight = '44px';  // Ensure minimum height
+        submitButton.style.fontWeight = 'normal';
+        submitButton.style.margin = '0';
+        
+        // Create cancel button with identical styling
         const cancelBtn = document.createElement('button');
         cancelBtn.textContent = 'Cancel';
         cancelBtn.type = 'button';
-        cancelBtn.style.backgroundColor = '#6c757d';
-        cancelBtn.style.color = 'white';
-        cancelBtn.style.border = 'none';
+        cancelBtn.style.flex = '1';
         cancelBtn.style.padding = '10px 20px';
+        cancelBtn.style.fontSize = '16px';
+        cancelBtn.style.border = 'none';
         cancelBtn.style.borderRadius = '4px';
         cancelBtn.style.cursor = 'pointer';
-        cancelBtn.style.fontSize = '16px';
-        cancelBtn.style.marginTop = '10px';
-        cancelBtn.style.marginLeft = '10px';
+        cancelBtn.style.backgroundColor = '#6c757d';
+        cancelBtn.style.color = 'white';
+        cancelBtn.style.minHeight = '44px';  // Same minimum height
+        cancelBtn.style.fontWeight = 'normal';
+        cancelBtn.style.margin = '0';
         
         cancelBtn.addEventListener('click', function() {
             localStorage.removeItem('shiftToUpdate');
             window.location.href = 'homepage.html';
         });
         
-        // Add cancel button after submit button
-        if (submitButton) {
-            submitButton.parentNode.appendChild(cancelBtn);
-        }
+        // Add hover effects
+        submitButton.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#0056b3';
+        });
+        submitButton.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '#007bff';
+        });
+        
+        cancelBtn.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#545b62';
+        });
+        cancelBtn.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '#6c757d';
+        });
+        
+        // Add both buttons to the container
+        buttonContainer.appendChild(submitButton);
+        buttonContainer.appendChild(cancelBtn);
+        
+        // Add the container to the form
+        submitParent.appendChild(buttonContainer);
     }
 }
 
