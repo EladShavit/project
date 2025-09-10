@@ -1,15 +1,10 @@
-// Update shift functionality - Add new shifts for the logged-in user
-// Initialize variables at the top
 let isUpdating = false;
 let currentShiftData = null;
 
-// Function to initialize the page
 function initializePage() {
-    // Get all form elements
     const shiftForm = document.querySelector('form');
     const dateInput = document.getElementById('date');
     const startTimeInput = document.getElementById('starttime');
-    // Try different selectors for problematic elements
     const finishTimeInput = document.getElementById('finishtime') || 
                            document.querySelector('input[name="finishtime"]') ||
                            document.querySelector('input[type="time"]:nth-of-type(2)');
@@ -21,44 +16,26 @@ function initializePage() {
     const pageTitle = document.querySelector('.signup-form h1');
     const submitButton = document.querySelector('button[type="submit"]');
 
-    // Get message elements
     const errorMessage = document.getElementById('error-message');
     const successMessage = document.getElementById('success-message');
 
-    // Debug: Check which elements are found
-    console.log('Form elements check:', {
-        dateInput: !!dateInput,
-        startTimeInput: !!startTimeInput,
-        finishTimeInput: !!finishTimeInput,
-        hourlyWageInput: !!hourlyWageInput,
-        positionInput: !!positionInput,
-        branchInput: !!branchInput
-    });
-
-    // Check if user is logged in (currentUser is already declared in menu.js)
     if (!currentUser) {
         alert('You must be logged in to add shifts.');
         window.location.href = 'login.html';
         return;
     }
 
-    // Calculate total wage for a shift
     function calculateShiftWage(startTime, finishTime, hourlyWage) {
-        // Parse times
         const [startHour, startMin] = startTime.split(':').map(Number);
         const [finishHour, finishMin] = finishTime.split(':').map(Number);
         
-        // Calculate total minutes
         let startMinutes = startHour * 60 + startMin;
         let finishMinutes = finishHour * 60 + finishMin;
         
         let totalMinutes;
         if (finishMinutes <= startMinutes) {
-            // Overnight shift - ends next day
             totalMinutes = (24 * 60 - startMinutes) + finishMinutes;
-            console.log('Overnight shift detected');
         } else {
-            // Same day shift
             totalMinutes = finishMinutes - startMinutes;
         }
         
@@ -66,42 +43,34 @@ function initializePage() {
         return (hoursWorked * hourlyWage).toFixed(2);
     }
 
-    // Check for overlapping shifts
     function checkShiftOverlap(date, startTime, finishTime, excludeShiftId = null) {
         const allShifts = JSON.parse(localStorage.getItem('shifts')) || {};
         const userShifts = allShifts[currentUser] || [];
         
-        // Convert times to minutes for easier comparison
         const [startHour, startMin] = startTime.split(':').map(Number);
         const [finishHour, finishMin] = finishTime.split(':').map(Number);
         let newStartMinutes = startHour * 60 + startMin;
         let newFinishMinutes = finishHour * 60 + finishMin;
         
-        // Check if it's an overnight shift
         const isOvernightNew = newFinishMinutes <= newStartMinutes;
         if (isOvernightNew) {
-            newFinishMinutes += 24 * 60; // Add 24 hours for next day
+            newFinishMinutes += 24 * 60; 
         }
         
         for (const shift of userShifts) {
-            // Skip the shift we're updating
             if (excludeShiftId && shift.id === excludeShiftId) continue;
             
-            // Check if it's the same date
             if (shift.date === date) {
                 const [existingStartHour, existingStartMin] = shift.startTime.split(':').map(Number);
                 const [existingFinishHour, existingFinishMin] = shift.finishTime.split(':').map(Number);
                 let existingStartMinutes = existingStartHour * 60 + existingStartMin;
                 let existingFinishMinutes = existingFinishHour * 60 + existingFinishMin;
                 
-                // Check if existing shift is overnight
                 const isOvernightExisting = existingFinishMinutes <= existingStartMinutes;
                 if (isOvernightExisting) {
                     existingFinishMinutes += 24 * 60;
                 }
                 
-                // Check for overlap
-                // Two shifts overlap if one starts before the other ends
                 if ((newStartMinutes < existingFinishMinutes && newFinishMinutes > existingStartMinutes)) {
                     return {
                         hasOverlap: true,
@@ -114,7 +83,6 @@ function initializePage() {
         return { hasOverlap: false };
     }
 
-    // Show error message
     function showError(message) {
         if (errorMessage) {
             errorMessage.textContent = message;
@@ -125,7 +93,6 @@ function initializePage() {
         }
     }
 
-    // Show success message
     function showSuccess(message) {
         if (successMessage) {
             successMessage.textContent = message;
@@ -136,7 +103,6 @@ function initializePage() {
         }
     }
 
-    // Hide messages
     function hideMessages() {
         if (errorMessage) {
             errorMessage.style.display = 'none';
@@ -148,15 +114,11 @@ function initializePage() {
         }
     }
 
-    // Check if we're updating an existing shift
     const shiftToUpdateId = localStorage.getItem('shiftToUpdate');
 
-    // Load shift data if updating
     if (shiftToUpdateId) {
-        console.log('Update mode - Shift ID:', shiftToUpdateId);
         isUpdating = true;
         
-        // Get the shift data
         const allShifts = JSON.parse(localStorage.getItem('shifts')) || {};
         const userShifts = allShifts[currentUser] || [];
         currentShiftData = userShifts.find(shift => shift.id === shiftToUpdateId);
@@ -164,7 +126,6 @@ function initializePage() {
         console.log('Found shift data:', currentShiftData);
         
         if (currentShiftData) {
-            // Populate form with existing shift data
             if (dateInput) dateInput.value = currentShiftData.date;
             if (startTimeInput) startTimeInput.value = currentShiftData.startTime;
             if (finishTimeInput) finishTimeInput.value = currentShiftData.finishTime;
@@ -172,7 +133,6 @@ function initializePage() {
             if (positionInput) positionInput.value = currentShiftData.position;
             if (branchInput) branchInput.value = currentShiftData.branch;
             
-            // Update the page title and button text
             if (pageTitle) {
                 pageTitle.textContent = 'Update Shift Details';
             }
@@ -180,10 +140,7 @@ function initializePage() {
                 submitButton.textContent = 'Update';
             }
             
-            console.log('Form populated with shift data');
         } else {
-            console.log('Shift not found, clearing update flag');
-            // Shift not found, clear the update flag
             localStorage.removeItem('shiftToUpdate');
             isUpdating = false;
         }
@@ -191,14 +148,11 @@ function initializePage() {
         console.log('Add mode - Creating new shift');
     }
 
-    // Form submission
     shiftForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Hide previous messages
         hideMessages();
         
-        // Validate all fields are filled
         if (!dateInput || !dateInput.value) {
             showError('Please select a date');
             return;
@@ -240,7 +194,6 @@ function initializePage() {
             return;
         }
         
-        // Check for overlapping shifts
         const overlapCheck = checkShiftOverlap(
             dateInput.value,
             startTimeInput.value,
@@ -254,9 +207,7 @@ function initializePage() {
             return;
         }
         
-        // Check if it's an overnight shift and provide information
         if (startTimeInput.value >= finishTimeInput.value) {
-            // This is an overnight shift
             const totalWagePreview = calculateShiftWage(
                 startTimeInput.value,
                 finishTimeInput.value,
@@ -265,27 +216,22 @@ function initializePage() {
             console.log(`Overnight shift: ${startTimeInput.value} to ${finishTimeInput.value} (next day), Total wage: $${totalWagePreview}`);
         }
         
-        // Calculate total wage for this shift
         const totalWage = calculateShiftWage(
             startTimeInput.value,
             finishTimeInput.value,
             parseFloat(hourlyWageInput.value)
         );
         
-        // Get existing shifts from localStorage
         const allShifts = JSON.parse(localStorage.getItem('shifts')) || {};
         
-        // Initialize user's shifts array if it doesn't exist
         if (!allShifts[currentUser]) {
             allShifts[currentUser] = [];
         }
         
         if (isUpdating) {
-            // Update existing shift
             const shiftIndex = allShifts[currentUser].findIndex(shift => shift.id === shiftToUpdateId);
             
             if (shiftIndex !== -1) {
-                // Update the shift while keeping its ID and creation date
                 allShifts[currentUser][shiftIndex] = {
                     id: shiftToUpdateId,
                     date: dateInput.value,
@@ -299,24 +245,19 @@ function initializePage() {
                     updatedAt: new Date().toISOString()
                 };
                 
-                // Save back to localStorage
                 localStorage.setItem('shifts', JSON.stringify(allShifts));
                 
-                // Clear the update flag
                 localStorage.removeItem('shiftToUpdate');
                 
-                // Show success message
                 showSuccess('Shift updated successfully!');
                 
-                // Redirect to homepage
                 setTimeout(() => {
                     window.location.href = 'homepage.html';
                 }, 1500);
             }
         } else {
-            // Create new shift
             const newShift = {
-                id: Date.now().toString(), // Unique ID using timestamp
+                id: Date.now().toString(),
                 date: dateInput.value,
                 startTime: startTimeInput.value,
                 finishTime: finishTimeInput.value,
@@ -327,19 +268,14 @@ function initializePage() {
                 createdAt: new Date().toISOString()
             };
             
-            // Add new shift to user's shifts
             allShifts[currentUser].push(newShift);
             
-            // Save back to localStorage
             localStorage.setItem('shifts', JSON.stringify(allShifts));
             
-            // Show success message
             showSuccess('Shift added successfully!');
             
-            // Clear form
             shiftForm.reset();
             
-            // Redirect to homepage
             setTimeout(() => {
                 if (confirm('Would you like to view your shifts?')) {
                     window.location.href = 'homepage.html';
@@ -348,7 +284,6 @@ function initializePage() {
         }
     });
 
-    // Clear messages when user starts typing
     const allInputs = [dateInput, startTimeInput, finishTimeInput, hourlyWageInput, positionInput, branchInput];
     allInputs.forEach(input => {
         if (input) {
@@ -357,21 +292,17 @@ function initializePage() {
         }
     });
 
-    // Add cancel button functionality if in update mode
     if (isUpdating) {
-        // Create a container for both buttons
         const buttonContainer = document.createElement('div');
         buttonContainer.style.display = 'flex';
         buttonContainer.style.gap = '10px';
         buttonContainer.style.width = '100%';
         buttonContainer.style.marginTop = '10px';
         
-        // Move the submit button into the container
         const submitParent = submitButton.parentNode;
         submitParent.removeChild(submitButton);
         
-        // Reset and style the submit button to ensure consistent sizing
-        submitButton.style.cssText = '';  // Clear any existing styles
+        submitButton.style.cssText = '';
         submitButton.style.flex = '1';
         submitButton.style.padding = '10px 20px';
         submitButton.style.fontSize = '16px';
@@ -380,11 +311,10 @@ function initializePage() {
         submitButton.style.cursor = 'pointer';
         submitButton.style.backgroundColor = '#007bff';
         submitButton.style.color = 'white';
-        submitButton.style.minHeight = '44px';  // Ensure minimum height
+        submitButton.style.minHeight = '44px';  
         submitButton.style.fontWeight = 'normal';
         submitButton.style.margin = '0';
         
-        // Create cancel button with identical styling
         const cancelBtn = document.createElement('button');
         cancelBtn.textContent = 'Cancel';
         cancelBtn.type = 'button';
@@ -396,7 +326,7 @@ function initializePage() {
         cancelBtn.style.cursor = 'pointer';
         cancelBtn.style.backgroundColor = '#6c757d';
         cancelBtn.style.color = 'white';
-        cancelBtn.style.minHeight = '44px';  // Same minimum height
+        cancelBtn.style.minHeight = '44px';  
         cancelBtn.style.fontWeight = 'normal';
         cancelBtn.style.margin = '0';
         
@@ -405,7 +335,6 @@ function initializePage() {
             window.location.href = 'homepage.html';
         });
         
-        // Add hover effects
         submitButton.addEventListener('mouseenter', function() {
             this.style.backgroundColor = '#0056b3';
         });
@@ -420,17 +349,13 @@ function initializePage() {
             this.style.backgroundColor = '#6c757d';
         });
         
-        // Add both buttons to the container
         buttonContainer.appendChild(submitButton);
         buttonContainer.appendChild(cancelBtn);
         
-        // Add the container to the form
         submitParent.appendChild(buttonContainer);
     }
 }
 
-// Initialize the page when DOM is ready
-// Use setTimeout to ensure all elements are loaded
 setTimeout(() => {
     initializePage();
 }, 0);
