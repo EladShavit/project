@@ -13,3 +13,19 @@
     min-width: 150px;
     max-width: 200px;
 }
+
+.login-link-container {
+    flex-basis: 100%;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.login-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
