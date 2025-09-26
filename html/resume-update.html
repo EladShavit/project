@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="resume-update.css">
     <script src="menu.js" defer></script>
+    <script src="resume-update.js" defer></script>
     <title>Resume</title>
 </head>
 <body>
@@ -22,44 +23,64 @@
                     <a href="update-profile.html">Update Profile</a>
                 </li>
                 <li>
-                    <a href="update-shift.html">Add Shift</a>
+                    <a href="update-shift.html">Update Shifts</a>
                 </li>
                 <li>
                     <a href="resume-update.html">Resume Update</a>
                 </li>
-                <li class="user-greeting"></li>
+                <li class="user-greeting">Hello!</li>
                 <li>
                     <a href="#" id="signout-link">Signout</a>
                 </li>
             </ul>
         </div>
     </div>
-    <form>
-        <fieldset>
-            <legend>Education</legend>
-            <input type="number" id="start_year" name="start_year" placeholder="Start Year" min="1900" max="2040" required><br>
-            <input type="number" id="end_year" name="end_year" placeholder="End Year" min="1900" max="2040"><br>
-            <input type="text" id="institution_name" name="institution_name" placeholder="Institution Name" required><br>
-            <select id="study_type" name="study_type" required>
-                <option>Degree</option>
-                <option>Certificate</option>
-            </select><br>
-            <label>Additional info</label><br>
-            <textarea name="description" id="description"></textarea>
-            <br>
-            <button type="submit">Update</button>
-        </fieldset>
-        <fieldset>
-            <legend>Occupation</legend>
-            <input type="number" id="work_start_year" name="work_start_year" placeholder="Start Year" min="1900" max="2040" required><br>
-            <input type="number" id="work_end_year" name="work_end_year" placeholder="End Year" min="1900" max="2040"><br>
-            <input type="text" id="workplace_name" name="workplace_name" placeholder="Workplace Name" required><br>
-            <input type="text" id="role_name" name="role_name" placeholder="Role Name" required><br>
-            <label>Description</label><br>
-            <textarea name="description" id="description"></textarea>
-            <br>
-            <button type="submit">Update</button>
-        </fieldset>
-    </form>
+    
+    <div class="resume-container">
+        <form id="education-form">
+            <fieldset>
+                <legend>Education</legend>
+                <input type="number" id="start_year" name="start_year" placeholder="Start Year *" min="1900" max="2040" required><br>
+                <input type="number" id="end_year" name="end_year" placeholder="End Year" min="1900" max="2040"><br>
+                <input type="text" id="institution_name" name="institution_name" placeholder="Institution Name *" required><br>
+                <select id="study_type" name="study_type" required>
+                    <option value="">Select Certificate/Degree *</option>
+                    <option value="High School">High School</option>
+                    <option value="Certificate">Certificate</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Bachelor's Degree">Bachelor's Degree</option>
+                    <option value="Master's Degree">Master's Degree</option>
+                    <option value="Doctorate">Doctorate</option>
+                    <option value="Other">Other</option>
+                </select><br>
+                <label>Additional info</label><br>
+                <textarea name="description" id="edu_description" placeholder="Describe your studies, achievements, etc."></textarea>
+                <br>
+                <p id="edu-error-message" style="color: red; text-align: center; display: none;"></p>
+                <p id="edu-success-message" style="color: green; text-align: center; display: none;"></p>
+                <button type="submit">Add</button>
+            </fieldset>
+        </form>
+               
+        <div id="education-records" class="records-container"></div>
+        
+        <form id="occupation-form">
+            <fieldset>
+                <legend>Occupation</legend>
+                <input type="number" id="work_start_year" name="work_start_year" placeholder="Start Year *" min="1900" max="2040" required><br>
+                <input type="number" id="work_end_year" name="work_end_year" placeholder="End Year" min="1900" max="2040"><br>
+                <input type="text" id="workplace_name" name="workplace_name" placeholder="Workplace Name *" required><br>
+                <input type="text" id="role_name" name="role_name" placeholder="Role Name *" required><br>
+                <label>Description</label><br>
+                <textarea name="description" id="work_description" placeholder="Describe your responsibilities, achievements, etc."></textarea>
+                <br>
+                <p id="work-error-message" style="color: red; text-align: center; display: none;"></p>
+                <p id="work-success-message" style="color: green; text-align: center; display: none;"></p>
+                <button type="submit">Add</button>
+            </fieldset>
+        </form>
+        
+        <div id="occupation-records" class="records-container"></div>
+    </div>
 </body>
 </html>

@@ -6,11 +6,17 @@ body {
     align-items: flex-start;
 }
 
+.resume-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 form {
     flex-direction: column;
-    max-width: none;
     width: 100%;
     gap: 30px;
+    margin-bottom: 30px;
 }
 
 fieldset {
@@ -19,8 +25,9 @@ fieldset {
     padding: 20px;
     margin: 0;
     background-color: #f8f9fa;
-    width: 70%;
+    width: 100%;
     max-width: 900px;
+    box-sizing: border-box;
 }
 
 legend {
@@ -36,12 +43,18 @@ input, select, textarea {
     margin-bottom: 15px;
 }
 
+input[type="text"],
+input[type="number"],
 select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+}
+
+select {
     background-color: white;
+    cursor: pointer;
 }
 
 textarea {
@@ -64,4 +77,77 @@ label {
 button[type="submit"] {
     width: 100%;
     margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.records-container {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.records-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.records-container th {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+.records-container td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.records-container tr:hover {
+    background-color: #f5f5f5;
+}
+
+.records-container button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.records-container button:hover {
+    opacity: 0.8;
+}
+
+#edu-error-message,
+#work-error-message {
+    color: red;
+    text-align: center;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #ffe6e6;
+}
+
+#edu-success-message,
+#work-success-message {
+    color: green;
+    text-align: center;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #e6ffe6;
 }
