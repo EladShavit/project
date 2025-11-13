@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="homepage.css">
+    <script src="menu.js" defer></script>
+    <script src="homepage.js" defer></script>
+</head>
+<body>
+    <div class="header">
+        <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox">
+        <label for="menu-toggle" class="menu-button">☰</label>
+        <div class="sidebar">
+            <ul class="nav-menu">
+                <li>
+                    <a href="#" id="shifts-link">Shifts</a>
+                </li>
+                <li>
+                    <a href="update-profile.html">Update Profile</a>
+                </li>
+                <li>
+                    <a href="update-shift.html">Add Shift</a>
+                </li>
+                <li>
+                    <a href="resume-update.html">Resume Update</a>
+                </li>
+                <li class="user-greeting"></li>
+                <li>
+                    <a href="#" id="signout-link">Signout</a>
+                </li>
+            </ul>
+        </div>
+        <div class="header-content">
+            <img src="images/logo.jpeg" alt="Logo">
+            <h1>Welcome to the Dashboard</h1>
+        </div>
+    </div>
+    <div class="content-area">
+        <form class="filter-form">
+            <select id="branch-filter">
+                <option value="">All Branches</option>
+                <option>Tel Aviv</option>
+                <option>Rannana</option>
+                <option>Haifa</option>
+                <option>Jerusalem</option>
+                <option>Bear Sheva</option>
+                <option>Eilat</option>
+                <option>Kiryat Gat</option>
+            </select>
+            <input type="text" id="job_position" name="job_position" placeholder="Job Position">
+            <button type="button" id="filter-btn">Filter</button>
+        </form>
+        <table class="shifts-table">
+            <tr>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>Finish Time</th>
+                <th>Hourly Wage</th>
+                <th>Position</th>
+                <th>Branch</th>
+                <th>Overall Wage Per Shift</th>
+                <th>Delete</th>
+                <th>Update</th>
+            </tr>
+        </table>
+        <p>Total Wage For Displayed Shifts:</p>
+        <a href="update-shift.html">
+            <button>Add shifts</button>
+        </a>
+    </div>
+</body>
+</html>
